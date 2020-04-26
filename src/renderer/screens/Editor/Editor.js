@@ -51,6 +51,10 @@ import ImportExportDialog from "./ImportExportDialog";
 import { CopyFromDialog } from "./CopyFromDialog";
 import { undeglowDefaultColors } from "./initialUndaglowColors";
 
+//New Imports for ML Layers
+import { backupLayers, shareLayers } from "../../../firebase/firebase.utils";
+import { Button } from "@material-ui/core";
+
 const styles = theme => ({
   tbg: {
     marginRight: theme.spacing.unit * 4
@@ -92,7 +96,7 @@ const styles = theme => ({
   toolbar: {
     position: "absolute",
     right: 0,
-    top: 21
+    top: 0
   }
 });
 
@@ -414,7 +418,30 @@ class Editor extends React.Component {
       isColorButtonSelected: false
     });
     console.log("Changes saved.");
+    //TODO: Save changes in the cloud
+    const Layers = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      }
+    };
+    backupLayers(Layers);
     this.props.cancelContext();
+  };
+
+  sharelayers = async () => {
+    //TODO: Share layers in the cloud
+    const Layers = {
+      undeglowColors: this.state.undeglowColors,
+      keymap: this.state.keymap,
+      colormap: {
+        palette: this.state.palette,
+        colorMap: this.state.colorMap
+      }
+    };
+    shareLayers(Layers);
   };
 
   // Callback function to set State of new Language
@@ -786,7 +813,7 @@ class Editor extends React.Component {
         <MenuItem value={idx} key={menuKey}>
           <ListItemText
             inset
-            primary={i18n.formatString(i18n.components.layer, idx)}
+            primary={i18n.formatString(i18n.components.layer, idx + 1)}
           />
         </MenuItem>
       );
@@ -870,6 +897,19 @@ class Editor extends React.Component {
         >
           {i18n.components.save.saveChanges}
         </SaveChangesButton>
+        <Button
+          onClick={this.sharelayers}
+          disabled={false}
+          style={{
+            padding: "6px 8px",
+            right: "80px",
+            bottom: "16px",
+            position: "fixed",
+            justifyContent: "flex-end"
+          }}
+        >
+          Share Content
+        </Button>
         <ConfirmationDialog
           title={i18n.editor.clearLayerQuestion}
           open={this.state.clearConfirmationOpen}

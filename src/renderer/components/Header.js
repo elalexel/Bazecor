@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 
 import "../../api/keymap";
 import "../../api/colormap";
@@ -74,7 +74,8 @@ function Header({
   pages,
   device,
   theme,
-  cancelContext
+  cancelContext,
+  drawerWidth
 }) {
   const [mainMenu, setMainMenuOpen] = useState(false);
   const [boardAnchor, setBoardMenuAnchor] = useState(null);
@@ -100,46 +101,36 @@ function Header({
   }
 
   return (
-    <AppBar
-      position="static"
-      color={contextBar ? "secondary" : "inherit"}
-      id="appbar"
-      style={{ padding: "20px 0" }}
-    >
-      <Toolbar variant="dense" className={classes.navigation}>
-        <MainMenu
-          connected={connected}
-          pages={pages}
-          open={mainMenu}
-          closeMenu={closeMainMenu}
-          themeDark={theme}
-        />
-        <div className={classes.grow} />
-        {device && device.urls && (
-          <BoardMenu
-            boardAnchor={boardAnchor}
-            boardClose={closeBoardMenu}
-            device={device}
-          />
-        )}
-        <div className={classes.submenu}>
-          <Button onClick={contextOnClick}>
-            {contextBar ? (
-              <CloseIcon />
-            ) : theme ? (
-              <img src={menuWhite} alt="Menu" className={classes.menuIcon} />
-            ) : (
-              <img src={menu} alt="Menu" className={classes.menuIcon} />
-            )}
-          </Button>
-          <Typography
-            variant="h6"
-            className={classes.pageMenu}
-            id="page-title"
-          />
-        </div>
-      </Toolbar>
-    </AppBar>
+    <Fragment>
+      <AppBar
+        position="static"
+        color={contextBar ? "secondary" : "inherit"}
+        id="appbar"
+        style={{
+          height: `${drawerWidth}px`,
+          paddingTop: "6px",
+          marginLeft: `${drawerWidth}px`
+        }}
+      >
+        <Toolbar variant="dense" className={classes.navigation}>
+          <div className={classes.submenu}>
+            <Typography
+              variant="h6"
+              className={classes.pageMenu}
+              id="page-title"
+            />
+          </div>
+        </Toolbar>
+      </AppBar>
+      <MainMenu
+        connected={connected}
+        pages={pages}
+        open={mainMenu}
+        closeMenu={closeMainMenu}
+        themeDark={theme}
+        drawerWidth={drawerWidth}
+      />
+    </Fragment>
   );
 }
 

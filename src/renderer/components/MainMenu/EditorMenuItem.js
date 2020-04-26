@@ -22,13 +22,22 @@ import ListItemText from "@material-ui/core/ListItemText";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import i18n from "../../i18n";
 
-export default function EditorMenuItem({ onClick, className }) {
+export default function EditorMenuItem({
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
   return (
     <ListItem button onClick={onClick} className={className}>
-      <ListItemIcon>
-        <KeyboardIcon />
+      <ListItemIcon style={{ margin: "0" }}>
+        <KeyboardIcon className={classIcon} />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.editor} />
+      {drawerWidth === "auto" ? (
+        <ListItemText primary={i18n.app.menu.editor} />
+      ) : (
+        <></>
+      )}
     </ListItem>
   );
 }

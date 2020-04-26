@@ -22,7 +22,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import i18n from "../../i18n";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 
-export default function FlashMenuItem({ selected, onClick, className }) {
+export default function FlashMenuItem({
+  selected,
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
   return (
     <ListItem
       button
@@ -30,10 +36,14 @@ export default function FlashMenuItem({ selected, onClick, className }) {
       onClick={onClick}
       className={className}
     >
-      <ListItemIcon>
-        <CloudUploadIcon />
+      <ListItemIcon style={{ margin: "0" }}>
+        <CloudUploadIcon className={classIcon} />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.firmwareUpdate} />
+      {drawerWidth === "auto" ? (
+        <ListItemText primary={i18n.app.menu.firmwareUpdate} />
+      ) : (
+        <></>
+      )}
     </ListItem>
   );
 }

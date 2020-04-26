@@ -26,7 +26,9 @@ export default function KeyboardMenuItem({
   keyboardSelectText,
   onClick,
   selected,
-  className
+  className,
+  classIcon,
+  drawerWidth
 }) {
   return (
     <ListItem
@@ -35,10 +37,14 @@ export default function KeyboardMenuItem({
       className={className}
       selected={selected}
     >
-      <ListItemIcon>
-        <KeyboardIcon />
+      <ListItemIcon style={{ margin: "0" }}>
+        <KeyboardIcon className={classIcon} />
       </ListItemIcon>
-      <ListItemText primary={keyboardSelectText} />
+      {drawerWidth === "auto" ? (
+        <ListItemText primary={keyboardSelectText} />
+      ) : (
+        <></>
+      )}
     </ListItem>
   );
 }

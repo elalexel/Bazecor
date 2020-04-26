@@ -49,17 +49,19 @@ import { history, navigate } from "./routerHistory";
 let focus = new Focus();
 focus.debug = true;
 focus.timeout = 15000;
-
+const drawerWidth = 64;
 if (settings.get("ui.language")) i18n.setLanguage(settings.get("ui.language"));
 
 const styles = () => ({
   root: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    overflow: "hidden"
   },
   content: {
     flexGrow: 1,
-    overflow: "auto"
+    overflow: "auto",
+    marginLeft: `${drawerWidth}px`
   }
 });
 
@@ -242,6 +244,7 @@ class App extends React.Component {
               connected={connected}
               pages={pages}
               device={device}
+              drawerWidth={drawerWidth}
               cancelContext={this.cancelContext}
               theme={darkMode}
             />
@@ -249,18 +252,21 @@ class App extends React.Component {
               <Router>
                 <Welcome
                   path="/welcome"
+                  drawerWidth={drawerWidth}
                   device={this.state.device}
                   onConnect={this.onKeyboardConnect}
                   titleElement={() => document.querySelector("#page-title")}
                 />
                 <KeyboardSelect
                   path="/keyboard-select"
+                  drawerWidth={drawerWidth}
                   onConnect={this.onKeyboardConnect}
                   onDisconnect={this.onKeyboardDisconnect}
                   titleElement={() => document.querySelector("#page-title")}
                 />
                 <Editor
                   path="/editor"
+                  drawerWidth={drawerWidth}
                   onDisconnect={this.onKeyboardDisconnect}
                   startContext={this.startContext}
                   cancelContext={this.cancelContext}
@@ -271,6 +277,7 @@ class App extends React.Component {
                 />
                 <FirmwareUpdate
                   path="/firmware-update"
+                  drawerWidth={drawerWidth}
                   device={this.state.device}
                   toggleFlashing={this.toggleFlashing}
                   onDisconnect={this.onKeyboardDisconnect}
@@ -279,6 +286,7 @@ class App extends React.Component {
                 <Preferences
                   connected={connected}
                   path="/preferences"
+                  drawerWidth={drawerWidth}
                   titleElement={() => document.querySelector("#page-title")}
                   darkMode={this.state.darkMode}
                   toggleDarkMode={this.toggleDarkMode}

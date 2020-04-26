@@ -39,6 +39,7 @@ const English = {
     menu: {
       comingSoon: "Coming soon...",
       welcome: "Welcome",
+      userMenu: "User Menu",
       editor: "Layout & colormap editor",
       firmwareUpdate: "Firmware Update",
       keyboardSettings: "Keyboard Settings",

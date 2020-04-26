@@ -19,10 +19,16 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InfoIcon from "@material-ui/icons/Info";
-import i18n from "../../i18n";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
-export default function WelcomeMenu({ selected, onClick, className }) {
+export default function WelcomeMenu({
+  selected,
+  userMenu,
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
   return (
     <ListItem
       button
@@ -30,10 +36,10 @@ export default function WelcomeMenu({ selected, onClick, className }) {
       onClick={onClick}
       className={className}
     >
-      <ListItemIcon>
-        <InfoIcon />
+      <ListItemIcon style={{ margin: "0" }}>
+        <AccountCircleIcon className={classIcon} />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.welcome} />
+      {drawerWidth === "auto" ? <ListItemText primary={userMenu} /> : <></>}
     </ListItem>
   );
 }

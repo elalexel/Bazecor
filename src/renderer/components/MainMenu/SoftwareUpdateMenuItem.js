@@ -20,36 +20,28 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import updateWhite from "../../update-white.png";
-import update from "../../update.png";
+import GetAppIcon from "@material-ui/icons/GetApp";
 import i18n from "../../i18n";
 
 export default function SoftwareUpdateMenuItem({
   onClick,
   className,
-  themeDark
+  classIcon,
+  drawerWidth
 }) {
   return (
     <ListItem button onClick={onClick} className={className} disabled>
-      <ListItemIcon>
-        {themeDark ? (
-          <img
-            src={updateWhite}
-            alt="update"
-            style={{ width: 24, height: 24 }}
-          />
-        ) : (
-          <img
-            src={update}
-            alt="updateWhite"
-            style={{ width: 24, height: 24 }}
-          />
-        )}
+      <ListItemIcon style={{ margin: "0" }}>
+        <GetAppIcon className={classIcon} />
       </ListItemIcon>
-      <ListItemText
-        primary={i18n.app.menu.softwareUpdate}
-        secondary={i18n.app.menu.comingSoon}
-      />
+      {drawerWidth === "auto" ? (
+        <ListItemText
+          primary={i18n.app.menu.softwareUpdate}
+          secondary={i18n.app.menu.comingSoon}
+        />
+      ) : (
+        <></>
+      )}
     </ListItem>
   );
 }

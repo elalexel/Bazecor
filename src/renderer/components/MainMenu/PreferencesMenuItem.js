@@ -22,7 +22,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SettingsIcon from "@material-ui/icons/Settings";
 import i18n from "../../i18n";
 
-export default function PreferencesMenuItem({ selected, onClick, className }) {
+export default function PreferencesMenuItem({
+  selected,
+  onClick,
+  className,
+  classIcon,
+  drawerWidth
+}) {
   return (
     <ListItem
       button
@@ -30,10 +36,14 @@ export default function PreferencesMenuItem({ selected, onClick, className }) {
       onClick={onClick}
       className={className}
     >
-      <ListItemIcon>
-        <SettingsIcon />
+      <ListItemIcon style={{ margin: "0" }}>
+        <SettingsIcon className={classIcon} />
       </ListItemIcon>
-      <ListItemText primary={i18n.app.menu.preferences} />
+      {drawerWidth === "auto" ? (
+        <ListItemText primary={i18n.app.menu.preferences} />
+      ) : (
+        <></>
+      )}
     </ListItem>
   );
 }
